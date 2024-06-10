@@ -3,6 +3,7 @@ package com.example.cbtransactions.infra.repositories;
 import com.example.cbtransactions.domain.entities.SubscriptionTypeEntity;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -31,9 +32,9 @@ class SubscriptionTypeRepoTest {
     @BeforeAll
     public void loadSubscriptionsType() {
         List<SubscriptionTypeEntity> listSubscriptionType = new ArrayList<>();
-        SubscriptionTypeEntity firsSubscriptionType = new SubscriptionTypeEntity(1L, "any_name", 3L, BigDecimal.valueOf(300), "any_product_key1");
+        SubscriptionTypeEntity firsSubscriptionType = new SubscriptionTypeEntity(1L, "any_name1", 3L, BigDecimal.valueOf(300), "any_product_key1");
         listSubscriptionType.add(firsSubscriptionType);
-        SubscriptionTypeEntity secondSubscriptionType = new SubscriptionTypeEntity(2L, "any_name", 6L, BigDecimal.valueOf(1000), "any_product_key2");
+        SubscriptionTypeEntity secondSubscriptionType = new SubscriptionTypeEntity(2L, "any_name2", 6L, BigDecimal.valueOf(1000), "any_product_key2");
         listSubscriptionType.add(secondSubscriptionType);
 
         subscriptionTypeRepo.saveAll(listSubscriptionType);
@@ -42,5 +43,11 @@ class SubscriptionTypeRepoTest {
     @AfterAll
     public void dropDatabase() {
         subscriptionTypeRepo.deleteAll();
+    }
+
+    @Test
+    void should_ReturnAllSubscriptionsTypeCreated_when_callsFindByProductKey() {
+        assertEquals("any_name1", subscriptionTypeRepo.findByProductKey("any_product_key1").get().getName());
+        assertEquals("any_name2", subscriptionTypeRepo.findByProductKey("any_product_key2").get().getName());
     }
 }
