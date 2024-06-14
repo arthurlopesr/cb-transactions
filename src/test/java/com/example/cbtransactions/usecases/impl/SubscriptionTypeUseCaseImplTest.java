@@ -4,7 +4,6 @@ import com.example.cbtransactions.domain.entities.SubscriptionTypeEntity;
 import com.example.cbtransactions.infra.repositories.SubscriptionTypeRepo;
 import com.example.cbtransactions.presentation.dtos.SubscriptionTypeDTO;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.mockito.InjectMocks;
@@ -38,8 +37,7 @@ class SubscriptionTypeUseCaseImplTest {
     private SubscriptionTypeUseCaseImpl subscriptionTypeUseCase;
 
     @Test
-    @DisplayName("Should return all subscription type created when calls findAll method")
-    void execute_findAll() {
+    void should_returnAllSubscriptionTypeCreated_when_CallsFindAll() {
         List<SubscriptionTypeEntity> subscriptionTypeEntityList = new ArrayList<>();
 
         SubscriptionTypeEntity firsST = new SubscriptionTypeEntity();
