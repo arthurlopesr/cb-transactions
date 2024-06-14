@@ -1,10 +1,7 @@
 package com.example.cbtransactions.infra.repositories;
 
 import com.example.cbtransactions.domain.entities.SubscriptionTypeEntity;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
@@ -46,7 +43,8 @@ class SubscriptionTypeRepoTest {
     }
 
     @Test
-    void should_ReturnAllSubscriptionsTypeCreated_when_callsFindByProductKey() {
+    @DisplayName("Should return all subscriptions type created when calls findByProductKey")
+    void execute_findByProductKey() {
         assertEquals("any_name1", subscriptionTypeRepo.findByProductKey("any_product_key1").get().getName());
         assertEquals("any_name2", subscriptionTypeRepo.findByProductKey("any_product_key2").get().getName());
     }
