@@ -2,18 +2,12 @@ package com.example.cbtransactions.usecases.impl;
 
 import com.example.cbtransactions.domain.entities.SubscriptionTypeEntity;
 import com.example.cbtransactions.infra.repositories.SubscriptionTypeRepo;
-import com.example.cbtransactions.presentation.dtos.SubscriptionTypeDTO;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -23,12 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
-@AutoConfigureDataJpa
-@AutoConfigureTestDatabase
-@WebMvcTest(SubscriptionTypeUseCaseImpl.class)
-@AutoConfigureMockMvc(addFilters = false)
-@ActiveProfiles("test")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@ExtendWith(MockitoExtension.class)
 class SubscriptionTypeUseCaseImplTest {
 
     @Mock

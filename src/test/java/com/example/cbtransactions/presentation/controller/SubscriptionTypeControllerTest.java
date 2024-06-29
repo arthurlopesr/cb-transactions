@@ -1,5 +1,6 @@
 package com.example.cbtransactions.presentation.controller;
 
+import com.example.cbtransactions.presentation.mapper.SubscriptionTypeMapper;
 import com.example.cbtransactions.usecases.SubscriptionTypeUseCase;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,9 @@ class SubscriptionTypeControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private SubscriptionTypeMapper mapper;
 
     @MockBean
     private SubscriptionTypeUseCase subscriptionTypeUseCase;

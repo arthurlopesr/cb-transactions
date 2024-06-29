@@ -1,8 +1,10 @@
 package com.example.cbtransactions.presentation.controller;
 
 import com.example.cbtransactions.domain.entities.SubscriptionTypeEntity;
+import com.example.cbtransactions.presentation.mapper.SubscriptionTypeMapper;
+import com.example.cbtransactions.presentation.dtos.SubscriptionTypeDTO;
 import com.example.cbtransactions.usecases.SubscriptionTypeUseCase;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,15 +13,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping(("/subscription-type"))
 public class SubscriptionTypeController {
 
-    @Autowired
-    private SubscriptionTypeUseCase subscriptionTypeUseCase;
+    private final SubscriptionTypeUseCase subscriptionTypeUseCase;
+
+    private final SubscriptionTypeMapper mapper;
 
     @GetMapping
-    public ResponseEntity<List<SubscriptionTypeEntity>> findAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(subscriptionTypeUseCase.findAll());
+    public ResponseEntity<List<SubscriptionTypeDTO>> findAll() {
+        List<SubscriptionTypeEntity> subscriptionTypeEntityList = subscriptionTypeUseCase.findAll();
+        List<SubscriptionTypeDTO> subscriptionTypeResponse = mapper.toSubscriptionTypeEntityToDtoList(subscriptionTypeEntityList);
+        return ResponseEntity.status(HttpStatus.OK).body(subscriptionTypeResponse);
     }
 }
