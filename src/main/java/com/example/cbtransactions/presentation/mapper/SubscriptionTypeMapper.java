@@ -2,23 +2,16 @@ package com.example.cbtransactions.presentation.mapper;
 
 import com.example.cbtransactions.domain.entities.SubscriptionTypeEntity;
 import com.example.cbtransactions.presentation.dtos.SubscriptionTypeDTO;
-import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Component
-@RequiredArgsConstructor
-public class SubscriptionTypeMapper {
-    private final ModelMapper mapper;
+@Mapper
+public interface SubscriptionTypeMapper {
+  SubscriptionTypeMapper INSTANCE = Mappers.getMapper(SubscriptionTypeMapper.class);
 
-    public SubscriptionTypeDTO toSubscriptionTypeEntityToDto(SubscriptionTypeEntity subscriptionType) {
-        return mapper.map(subscriptionType, SubscriptionTypeDTO.class);
-    }
+  SubscriptionTypeDTO toSubscriptionTypeDto(SubscriptionTypeEntity subscriptionTypeEntity);
 
-    public List<SubscriptionTypeDTO> toSubscriptionTypeEntityToDtoList(List<SubscriptionTypeEntity> subscriptionTypeList) {
-        return subscriptionTypeList.stream()
-                .map(this::toSubscriptionTypeEntityToDto).toList();
-    }
+  List<SubscriptionTypeDTO> subscriptionTypeDtoList(List<SubscriptionTypeEntity> subscriptionTypeEntityList);
 }

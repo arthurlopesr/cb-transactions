@@ -84,7 +84,7 @@ class SubscriptionTypeControllerTest {
     @DisplayName("Should call the findAll method correctly with status code 200")
     void execute_findAll_with_200_statusCode() throws Exception {
         when(subscriptionTypeUseCase.findAll()).thenReturn(subscriptionTypeEntityList);
-        when(mapper.toSubscriptionTypeEntityToDtoList(subscriptionTypeEntityList)).thenReturn(subscriptionTypeDTOList);
+        when(mapper.subscriptionTypeDtoList(subscriptionTypeEntityList)).thenReturn(subscriptionTypeDTOList);
         mockMvc.perform(MockMvcRequestBuilders.get("/subscription-type"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
@@ -109,7 +109,7 @@ class SubscriptionTypeControllerTest {
     @DisplayName("Should calls the findById method with status code 200")
     void execute_findById_with_200_statusCode() throws Exception {
         when(subscriptionTypeUseCase.findById(1L)).thenReturn(Optional.ofNullable(firsST));
-        when(mapper.toSubscriptionTypeEntityToDto(firsST)).thenReturn(firsDto);
+        when(mapper.toSubscriptionTypeDto(firsST)).thenReturn(firsDto);
         mockMvc.perform(MockMvcRequestBuilders.get("/subscription-type/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
@@ -118,7 +118,7 @@ class SubscriptionTypeControllerTest {
     @DisplayName("Should calls the findById method with status code 204")
     void execute_findById_with_204_statusCode() throws Exception {
         when(subscriptionTypeUseCase.findById(1L)).thenReturn(Optional.empty());
-        when(mapper.toSubscriptionTypeEntityToDto(firsST)).thenReturn(null);
+        when(mapper.toSubscriptionTypeDto(firsST)).thenReturn(null);
         mockMvc.perform(MockMvcRequestBuilders.get("/subscription-type/1"))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
     }

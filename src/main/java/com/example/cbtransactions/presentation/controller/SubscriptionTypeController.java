@@ -22,13 +22,13 @@ public class SubscriptionTypeController {
 
     private final SubscriptionTypeUseCase subscriptionTypeUseCase;
 
-    private final SubscriptionTypeMapper mapper;
+    private static final SubscriptionTypeMapper mapper = SubscriptionTypeMapper.INSTANCE;
 
     @GetMapping
     public ResponseEntity<List<SubscriptionTypeDTO>> findAll() {
         try {
             List<SubscriptionTypeEntity> subscriptionTypeList = subscriptionTypeUseCase.findAll();
-            List<SubscriptionTypeDTO> subscriptionTypeListResponse = mapper.toSubscriptionTypeEntityToDtoList(subscriptionTypeList);
+            List<SubscriptionTypeDTO> subscriptionTypeListResponse = mapper.subscriptionTypeDtoList(subscriptionTypeList);
 
             return subscriptionTypeListResponse.isEmpty()
                     ? ResponseEntity.status(HttpStatus.NO_CONTENT).build()
@@ -44,7 +44,7 @@ public class SubscriptionTypeController {
             Optional<SubscriptionTypeEntity> subscriptionType = subscriptionTypeUseCase.findById(subscriptionTypeId);
 
             if (subscriptionType.isPresent()) {
-                SubscriptionTypeDTO subscriptionTypeResponse = mapper.toSubscriptionTypeEntityToDto(subscriptionType.get());
+                SubscriptionTypeDTO subscriptionTypeResponse = mapper.toSubscriptionTypeDto(subscriptionType.get());
                 return ResponseEntity.ok(subscriptionTypeResponse);
             } else {
                 return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
