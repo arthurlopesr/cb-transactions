@@ -1,7 +1,8 @@
-package com.example.cbtransactions.usecases.impl;
+package com.example.cbtransactions.usecase.impl;
 
 import com.example.cbtransactions.domain.entities.SubscriptionTypeEntity;
 import com.example.cbtransactions.infra.repositories.SubscriptionTypeRepo;
+import com.example.cbtransactions.presentation.dtos.SubscriptionTypeDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,7 @@ class SubscriptionTypeUseCaseImplTest {
     List<SubscriptionTypeEntity> subscriptionTypeEntityList = new ArrayList<>();
     SubscriptionTypeEntity firsST = new SubscriptionTypeEntity();
     SubscriptionTypeEntity secondST = new SubscriptionTypeEntity();
+    SubscriptionTypeDTO subscriptionTypeDto = new SubscriptionTypeDTO();
 
     @BeforeEach
     void setUp() {
@@ -47,6 +49,12 @@ class SubscriptionTypeUseCaseImplTest {
         secondST.setPrice(BigDecimal.valueOf(600));
         secondST.setProductKey("any_product_key2");
         subscriptionTypeEntityList.add(secondST);
+
+        subscriptionTypeDto.setSubscriptionTypeId(1L);
+        subscriptionTypeDto.setName("any_name1");
+        subscriptionTypeDto.setAccessMonths(6L);
+        subscriptionTypeDto.setPrice(BigDecimal.valueOf(300));
+        subscriptionTypeDto.setProductKey("any_product_key1");
     }
 
     @Test
@@ -59,10 +67,18 @@ class SubscriptionTypeUseCaseImplTest {
     }
 
     @Test
-    @DisplayName("Shuld return subscription type when call findById method")
+    @DisplayName("Should return subscription type when call findById method")
     void execute_findById() {
         when(subscriptionTypeUseCase.findById(1L)).thenReturn(Optional.ofNullable(firsST));
         Optional<SubscriptionTypeEntity> result = subscriptionTypeUseCase.findById(1L);
         assertEquals(Optional.ofNullable(firsST), result);
+    }
+
+    @Test
+    @DisplayName("Should save subscription type in database when calls create method")
+    void execute_create() {
+        when(subscriptionTypeUseCase.create(subscriptionTypeDto)).thenReturn(firsST);
+        SubscriptionTypeEntity result = subscriptionTypeUseCase.create(subscriptionTypeDto);
+        assertEquals(firsST, result);
     }
 }

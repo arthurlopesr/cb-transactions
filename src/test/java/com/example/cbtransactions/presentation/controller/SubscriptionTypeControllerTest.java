@@ -3,7 +3,7 @@ package com.example.cbtransactions.presentation.controller;
 import com.example.cbtransactions.domain.entities.SubscriptionTypeEntity;
 import com.example.cbtransactions.presentation.dtos.SubscriptionTypeDTO;
 import com.example.cbtransactions.presentation.mapper.SubscriptionTypeMapper;
-import com.example.cbtransactions.usecases.SubscriptionTypeUseCase;
+import com.example.cbtransactions.usecase.SubscriptionTypeUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -129,5 +129,14 @@ class SubscriptionTypeControllerTest {
         when(subscriptionTypeUseCase.findById(1L)).thenThrow(new RuntimeException("Error test"));
         mockMvc.perform(MockMvcRequestBuilders.get("/subscription-type/1"))
                 .andExpect(MockMvcResultMatchers.status().isInternalServerError());
+    }
+
+    @Test
+    @DisplayName("Should calls the create method with status code 201")
+    void execute_create_with_201() throws Exception {
+        when(subscriptionTypeUseCase.create(firsDto)).thenReturn(firsST);
+        when(mapper.toSubscriptionTypeDto(firsST)).thenReturn(firsDto);
+        mockMvc.perform(MockMvcRequestBuilders.post("/subscription-type"))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 }

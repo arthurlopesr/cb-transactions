@@ -1,8 +1,10 @@
-package com.example.cbtransactions.usecases.impl;
+package com.example.cbtransactions.usecase.impl;
 
 import com.example.cbtransactions.domain.entities.SubscriptionTypeEntity;
 import com.example.cbtransactions.infra.repositories.SubscriptionTypeRepo;
-import com.example.cbtransactions.usecases.SubscriptionTypeUseCase;
+import com.example.cbtransactions.presentation.dtos.SubscriptionTypeDTO;
+import com.example.cbtransactions.usecase.SubscriptionTypeUseCase;
+import com.example.cbtransactions.usecase.factory.SubscriptionTypeFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,5 +27,10 @@ public class SubscriptionTypeUseCaseImpl implements SubscriptionTypeUseCase {
     @Override
     public Optional<SubscriptionTypeEntity> findById(Long subscriptionTypeId) {
         return subscriptionTypeRepo.findById(subscriptionTypeId);
+    }
+
+    @Override
+    public SubscriptionTypeEntity create(SubscriptionTypeDTO subscriptionTypeDTO) {
+        return subscriptionTypeRepo.save(SubscriptionTypeFactory.fromDtoToEntity(subscriptionTypeDTO));
     }
 }
